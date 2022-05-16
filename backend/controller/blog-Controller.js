@@ -5,7 +5,7 @@ export const getAllBlogs = async (req, res, next) => {
   try {
     blogs = await Blog.find();
   } catch (err) {
-    console.log(err);
+    return console.log(err);
   }
   if (!blogs) {
     return res.status(404).json({
@@ -17,12 +17,31 @@ export const getAllBlogs = async (req, res, next) => {
       succes: "true",
       message: "NO Blog Found",
     });
-  } else if (blogs > 0) {
+  } else if (blogs.length > 0) {
     return res.status(200).json({
       status: "true",
       count: blogs.length,
       blogs,
     });
   }
+  next();
+};
+export const addBlog = async (req, res, next) => {
+  const { title, description, image, user } = req.body;
+  const blog = new Blog({
+    title,
+    description,
+    image,
+    user,
+  });
+  try {
+    await blog.save();
+  } catch (err) {
+    return console.log(err);
+  }
+  return res.status(201).json({
+    status: "true",
+    blog,
+  });
   next();
 };
