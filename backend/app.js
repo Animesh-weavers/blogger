@@ -1,11 +1,12 @@
 import express from "express";
 import mongoose from "mongoose";
+import blogRouter from "./routes/blog-Routes";
 import router from "./routes/user-Routes";
 const app = express();
 
 app.use(express.json());
 app.use("/v1/user", router);
-
+app.use("/v1/blog",blogRouter);
 mongoose
   .connect(
     "mongodb+srv://animesh2022:animeshdey1234@cluster0.e7jce.mongodb.net/blog?retryWrites=true&w=majority"
