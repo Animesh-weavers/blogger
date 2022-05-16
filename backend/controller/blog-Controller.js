@@ -1,4 +1,5 @@
 import Blog from "../model/Blog";
+// import multer from "multer";
 
 export const getAllBlogs = async (req, res, next) => {
   let blogs;
@@ -28,6 +29,8 @@ export const getAllBlogs = async (req, res, next) => {
 };
 export const addBlog = async (req, res, next) => {
   const { title, description, image, user } = req.body;
+//   const upload = multer({ destination: "uploads/" });
+//   console.log(req.body);
   const blog = new Blog({
     title,
     description,
